@@ -1,0 +1,36 @@
+Authenticate:About to read Card data:33989808                                             
+PSTN    
+Show customer tag                 
+Target Detected               
+Authentication Success                      
+Read Success and Data is                        
+ 0x57   0x41   0x50   0x30   0x35   0x32   0x30   0x30   0x32   0x32   0x30   0x                                                                                
+30   0x31   0x32   0x34   0x 0                              
+GSM   
+Read Card RFID.About to read Card data:33989808                                               
+Entered getCardDetails                      
+ sql string :  SELECT CARD_ID,DISTRICT, MANDAL,NO_OF_MEMBERS,FAMILY_HEAD,CARD_TY                                                                                
+PE,SURNAME              FROM CARD_DETAILS A WHERE CARD_ID='WAP052002200124'     
+Begin getVal() for key:shop_id
+Config items length in getVal:28
+Returning value:022
+End of getCardDetails
+Completed getCardDetails:card_id=WAP052002200124,district=1,mandal=1,fpshop=022,
+no_of_members=3,                        familyhead=Raghavulu,cardtype=1,surname=
+Bonu
+0.RFID:Entered getMemberDetails:Card:33989808, Member:34004104, Card id:WAP05200
+2200124
+
+ sql string :  SELECT SLNO,MEMBERNAME,AGE,RELATION,ifnull(FP_LIF,'') FP_LIF,ifnu
+ll(FP_RIF,'') FP_RIF,ifnull(FP_LTF,'') FP_LTF                   FROM MEMBERS WHE
+RE CARD_ID='WAP052002200124' order by slno
+RFID:No of rows:3
+Table details:1,  , 30
+Member Curr=33976848, Next=0
+Table details:2, Paidamma, 28
+Member Curr=33978984, Next=0
+Table details:3, Venkataramana, 12
+Begun display_menu
+About to show member menu, No. of members:3
+Setting members:0->Raghavulu
+Maxdispcnt=3 title=Member List

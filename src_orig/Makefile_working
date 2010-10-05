@@ -1,0 +1,130 @@
+LDIR=../lib/lib91sdepos.a
+LDIR1=../lib/libthinkfinger.a
+LDIR2=../lib/libusb.a
+#LDIR2= /home/libusb-0.1.12/install/lib/libusb.a
+LDIR3=../lib/libSC2_ANSI378.a
+LDIR4=../lib/*.o
+IDIR=../include
+CC=arm-linux-gcc 
+
+OBJS=main_menu.o scroll_menu.o lcd.o keypad.o print.o magnetic_head.o ifd.o battery.o communication.o pstn.o ethernet.o gsm_gprs.o cdma.o usb.o download.o local.o remote.o version.o setup.o jffs2.o machineid.o ppp_api.o pppfunc.o V91Modem.o voice_call.o rfid.o serial.o  barcode.o massstorage.o usb_test.o upek.o iris.o firmware.o sound_wave.o sdcard.o
+
+test_apl:$(OBJS)
+
+	$(CC) -o selfdiag4.0.1   $(OBJS) $(LDIR1) $(LDIR2) $(LDIR3) $(LDIR4)  $(LDIR)  -w -O2
+main_menu.o :main_menu.c 
+	$(CC) -I $(IDIR) -c main_menu.c
+scroll_menu.o:scroll_menu.c
+	$(CC) -I $(IDIR) -c scroll_menu.c
+lcd.o:lcd.c
+	$(CC) -I $(IDIR) -c lcd.c
+keypad.o:keypad.c
+	$(CC) -I $(IDIR) -c keypad.c
+print.o:print.c
+	$(CC) -I $(IDIR) -c print.c
+magnetic_head.o:magnetic_head.c
+	$(CC) -I $(IDIR) -c magnetic_head.c
+ifd.o:ifd.c
+	$(CC) -I $(IDIR) -c ifd.c
+battery.o:battery.c
+	$(CC) -I $(IDIR) -c battery.c
+eposdatabase.o:eposdatabase.c
+	$(CC) -I $(IDIR) -c eposdatabase.c
+communication.o:communication.c
+	$(CC) -I $(IDIR) -c communication.c
+pstn.o:pstn.c
+	$(CC) -I $(IDIR) -c pstn.c
+ethernet.o:ethernet.c
+	$(CC) -I $(IDIR) -c ethernet.c
+gsm_gprs.o:gsm_gprs.c
+	$(CC) -I $(IDIR) -c gsm_gprs.c
+cdma.o:cdma.c
+	$(CC) -I $(IDIR) -c cdma.c
+usb.o:usb.c
+	$(CC) -I $(IDIR) -c usb.c
+download.o:download.c
+	$(CC) -I $(IDIR) -c download.c
+local.o:local.c
+	$(CC) -I $(IDIR) -c local.c
+remote.o:remote.c
+	$(CC) -I $(IDIR) -c remote.c
+version.o:version.c
+	$(CC) -I $(IDIR) -c version.c
+setup.o:setup.c
+	$(CC) -I $(IDIR) -c setup.c
+jffs2.o:jffs2.c
+	$(CC) -I $(IDIR) -c jffs2.c
+machineid.o:machineid.c
+	$(CC) -I $(IDIR) -c machineid.c
+ppp_api.o:ppp_api.c
+	$(CC) -I $(IDIR) -c ppp_api.c
+pppfunc.o:pppfunc.c
+	$(CC) -I $(IDIR) -c pppfunc.c
+V91Modem.o:V91Modem.c
+	$(CC) -I $(IDIR) -c V91Modem.c
+voice_call.o: voice_call.c
+	$(CC) -I $(IDIR) -c voice_call.c
+rfid.o:rfid.c
+	$(CC) -I $(IDIR) -c rfid.c
+serial.o:serial.c
+	$(CC) -I $(IDIR) -c serial.c	
+barcode.o:barcode.c
+	$(CC) -I $(IDIR) -c barcode.c
+massstorage.o:massstorage.c
+	$(CC) -I $(IDIR) -c massstorage.c
+usb_test.o:usb_test.c
+	$(CC) -I $(IDIR) -c usb_test.c
+upek.o:upek.c
+	$(CC) -I $(IDIR) -c upek.c
+iris.o:iris.c
+	$(CC) -I $(IDIR) -c iris.c
+firmware.o:firmware.c
+	$(CC) -I $(IDIR) -c firmware.c
+sound_wave.o:sound_wave.c
+	$(CC) -I $(IDIR) -c sound_wave.c
+sdcard.o:sdcard.c
+	$(CC) -I $(IDIR) -c sdcard.c
+
+clean:
+	rm -f main_menu.o
+	rm -f lcd.o
+	rm -f keypad.o
+	rm -f print.o
+	rm -f magnetic_head.o
+	rm -f ifd.o
+	rm -f battery.o
+	rm -f communication.o
+	rm -f pstn.o
+	rm -f ethernet.o
+	rm -f gsm_gprs.o
+	rm -f cdma.o
+	rm -f usb.o
+	rm -f download.o
+	rm -f local.o
+	rm -f remote.o
+	rm -f version.o
+	rm -f setup.o
+	rm -f jffs2.o
+	rm -f machineid.o
+	rm -f ppp_api.o
+	rm -f pppfunc.o
+	rm -f V91Modem.o
+	rm -f V91kermapi.o
+	rm -f scroll_menu.o
+	rm -f voice_call.o
+	rm -f rfid.o
+	rm -f serial.o
+	rm -f barcode.o
+	rm -f massstorage.o
+	rm -f usb_test.o
+	rm -f upek.o
+	rm -f iris.o
+	rm -f firmware.o
+	rm -f sound_wave.o
+	rm -f sdcard.o
+	rm -f selfdiag4.0.1
+	rm -f SELFDIAG4.0.1.IMG
+	
+image:
+	arm-linux-strip  selfdiag4.0.1
+	newmkapp selfdiag4.0.1 SELFDIAG4.0.1.IMG

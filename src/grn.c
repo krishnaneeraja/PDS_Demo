@@ -1,0 +1,6 @@
+void grn();
+
+void grn()
+{
+
+}

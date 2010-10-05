@@ -1,0 +1,241 @@
+#include "header.h"
+#include <unistd.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+
+/********************************** global varibles********************************************/
+
+int ramdisk_type;
+
+extern int openDB ();
+int initialize_db ();
+extern int open_sqlite (char *);
+extern int close_sqlite ();
+char *database = "/mnt/jffs2/ams.sqlite";
+char *logFile = "ams.log";
+FILE *fp;
+char *configFile = "/mnt/jffs2/config.txt";
+void select1 (char *sql);
+void parseFiles ();
+typedef struct resultset_struct
+{
+  int rows;
+   int cols;
+   char ***recordset;
+ } resultset;
+extern resultset get_result (const char *fmt, ...);
+extern void *syncThread (void *arg);
+extern char *getVal(char *);
+extern char *toUpper(char *);
+
+/***********************************************************************************************
+                        MAIN MENU FOR SELF-DIAGNOSTICS ver 4.0
+
+***********************************************************************************************/
+int
+main (void)
+{
+  struct tm intim;
+  int Ret_val;
+  double amount;
+  unsigned char str[100] = "";
+  pthread_t syncT;
+
+
+//      fp = fopen (logFile, "w+");
+  fp = stdout;
+  lk_open ();
+  prn_open ();
+  mscr_open ();
+  lk_dispinit ();
+  initialize_db ();
+  open_sqlite (database);
+
+  read_config (configFile);
+
+  if(strcmp(toUpper(getVal("show_splash")),"TRUE")==0)
+  {
+	  lk_disptext (1, 0, "A.M.S", 0);
+	  lk_disptext (2, 0, "Callippus Solutions Pvt Ltd", 0);
+	  lk_disptext (3, 0, "Hyderabad", 0);
+	  lk_disptext (4, 0, "Enter to continue", 0);
+	  lk_getkey ();
+	  lk_dispclr ();
+  }
+
+  if(strcmp(toUpper(getVal("commMode")),"ETHERNET") == 0)
+	  ip_setup ();
+
+  if (pthread_create (&syncT, NULL, syncThread, NULL) != 0)
+    fprintf (stderr, "Error creating the thread");
+
+  upek_menu ();
+
+  prn_close ();			// closing printer
+  lk_close ();			// closing pinpad
+  mscr_close ();		// closing magnetic swipe
+  close_sqlite ();
+
+  return SUCCESS;
+}
+
+int
+ramdisk_chk (void)
+{
+
+  FILE *fp, *fp1;
+  char str[80] = "", str1[80] = "";
+
+  ramdisk_type = 0;
+
+  fp1 = fopen ("/etc/rc.d/rc.sysinit", "r");	//checking  init scripts for ramdisk configuration file
+
+  if (fp1 == NULL)
+    {
+      printf ("\nfile open error\n");
+      return ERROR;
+    }
+
+
+  else
+    while ((fgets (str1, 80, fp1)) != NULL)
+      {
+	if ((strstr (str1, "/home/setup_lotto")) != NULL)
+	  {
+	    fclose (fp1);
+	    fp = fopen ("/home/setup_lotto", "r");
+	    break;
+	  }
+
+	else if ((strstr (str1, "/home/setup_board")) != NULL)
+	  {
+	    fclose (fp1);
+	    fp = fopen ("/home/setup_board", "r");
+	    break;
+	  }
+      }
+
+  if (fp == NULL)
+    {
+      printf ("\nfile open error\n");
+      return -1;
+    }
+
+  else
+    while ((fgets (str, 80, fp)) != NULL)	// Checking for Ramdisk type
+      {
+
+	if ((strstr (str, "RALINK")) != NULL)
+	  {
+	    ramdisk_type = RALINKWLAN;
+	    printf ("\nRALINK RAMDISK\n");
+	    break;
+	  }
+
+	else if ((strstr (str, "ETHERNET")) != NULL)
+	  {
+	    ramdisk_type = ETHERNET;
+	    printf ("\nETHERNET RAMDISK \n");
+	    break;
+	  }
+
+
+	else if ((strstr (str, "CNET")) != NULL)
+	  {
+	    ramdisk_type = CNETWLAN;
+	    printf ("\nCNET RAMDISK\n");
+	    break;
+	  }
+
+	else if ((strstr (str, "CDMA")) != NULL)
+	  {
+	    ramdisk_type = CDMA;
+	    printf ("\nCDMA RAMDISK\n");
+	    break;
+	  }
+
+	if ((strstr (str, "GSM")) != NULL)
+	  {
+	    ramdisk_type = GSM_GPRS;
+	    printf ("\nGSM/GPRS RAMDISK\n");
+	    break;
+	  }
+
+	if ((strstr (str, "PSTN")) != NULL)
+	  {
+	    ramdisk_type = PSTN;
+	    printf ("\nPSTN RAMDISK\n");
+	    break;
+	  }
+      }
+
+  fclose (fp);
+
+  return SUCCESS;
+
+}
+
+
+int
+copy_file (char *dest, char *src)
+{
+  unsigned char c[512];
+  int in, out, n;
+
+  in = open (src, O_RDONLY);
+  out = open (dest, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
+
+  if (in == -1 || out == -1)
+    {
+      fprintf (stderr, "unable to oepn file %d %d\n", in, out);
+      return -1;
+    }
+
+
+  while (1)
+    {
+      n = read (in, c, 512);
+      if (n == 0)
+	break;
+      write (out, c, n);
+    }
+
+  close (in);
+  close (out);
+
+}
+
+
+int
+initialize_db ()
+{
+  int rc = 1;
+  struct stat buf;
+  int i = 0;
+  FILE *fp;
+
+  fp = stdout;
+
+  fprintf (fp, "Begun initialize_db\n");
+
+  fprintf (fp, "1...Initializing database from path...%s\n", database);
+  i = stat (database, &buf);
+  fprintf (fp, "2...Initializing database...:%d\n", i);
+
+  if ((i < 0) || (buf.st_size == 0))
+    {
+      fprintf (fp, "Initializing database...\n");
+      rc = open_sqlite (database);
+      if (rc == 0)
+	{
+	  fprintf (fp, "Create database failure!\n");
+	}
+      close_sqlite ();
+    }
+
+  fprintf (fp, "Ended initialize_db\n");
+
+  return rc;
+}

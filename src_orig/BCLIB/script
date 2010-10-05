@@ -1,0 +1,1 @@
+arm-linux-gcc convert-template4.c libbclib.a -lm -o linkwell2

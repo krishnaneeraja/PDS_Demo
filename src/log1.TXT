@@ -1,0 +1,488 @@
+./. retail
+Begun main()Pinpad Version 2.00 With Flow COntrol
+ 22:34:15 16:07:10
+ Error opening device /dev/tpd : Device or resource busy
+Begun initialize_db
+1...Initializing database from path.../mnt/jffs2/fps.sqlite
+2...Initializing database...:0
+Ended initialize_db
+ database opened 
+Begin of get_config()This is sql:SELECT VALUE FROM CONFIGURATION WHERE KEY='CONFIG_FILE' AND OFFICE_ID='0'
+ sql string :  SELECT VALUE FROM CONFIGURATION WHERE KEY='CONFIG_FILE' AND OFFICE_ID='0'
+End of get_config:/mnt/jffs2/config.txtBegin read_config()
+This is the name length: 8
+This is the val length: 6
+Name[0]:office_id,value[0]=100228
+This is the name length: 6
+This is the val length: 4
+Name[1]:till_no,value[1]=T001
+This is the name length: 10
+This is the val length: 4
+Name[2]:show_splash,value[2]=TRUE
+This is the name length: 10
+This is the val length: 3
+Name[3]:gprs_domain,value[3]=www
+This is the name length: 9
+This is the val length: 48
+Name[4]:remote_url,value[4]=http://124.123.206.65/posservice/txnservice.asmx
+This is the name length: 9
+This is the val length: 4
+Name[5]:admin_user,value[5]=9999
+This is the name length: 8
+This is the val length: 5
+Name[6]:admin_pwd,value[6]=54321
+This is the name length: 10
+This is the val length: 6
+Name[7]:server_user,value[7]=520015
+This is the name length: 9
+This is the val length: 6
+Name[8]:server_pwd,value[8]=520015
+This is the name length: 10
+This is the val length: 7
+Name[9]:logFileSize,value[9]=1048000
+This is the name length: 7
+This is the val length: 10
+Name[10]:FilePath,value[10]=/mnt/jffs2
+This is the name length: 8
+This is the val length: 16
+Name[11]:uploadURL,value[11]=/uploadfile.aspx
+This is the name length: 10
+This is the val length: 14
+Name[12]:downloadURL,value[12]=/Download.aspx
+This is the name length: 7
+This is the val length: 4
+Name[13]:commMode,value[13]=GPRS
+This is the name length: 7
+This is the val length: 4
+Name[14]:commType,value[14]=DHCP
+This is the name length: 6
+This is the val length: 4
+Name[15]:ethType,value[15]=ETH0
+This is the name length: 5
+This is the val length: 12
+Name[16]:ipAddr,value[16]=192.168.1.85
+This is the name length: 9
+This is the val length: 13
+Name[17]:subnetMask,value[17]=255.255.255.0
+This is the name length: 8
+This is the val length: 11
+Name[18]:defaultGw,value[18]=192.168.1.8
+This is the name length: 9
+This is the val length: 11
+Name[19]:primaryDNS,value[19]=192.168.1.8
+This is the name length: 5
+This is the val length: 11
+Name[20]:secDNS,value[20]=192.168.1.8
+This is the name length: 8
+This is the val length: 2
+Name[21]:sleepTime,value[21]=60
+This is the name length: 9
+This is the val length: 5
+Name[22]:background,value[22]=false
+This is the name length: 6
+This is the val length: 5
+Name[23]:authBio,value[23]=false
+This is the name length: 7
+This is the val length: 5
+Name[24]:authMode,value[24]=smart
+This is the name length: 6
+This is the val length: 2
+Name[25]:shop_id,value[25]=15
+This is the name length: 7
+This is the val length: 6
+Name[26]:terminal,value[26]=520015
+This is the name length: 6
+This is the val length: 3
+Name[27]:version,value[27]=1.0
+This is the name length: 9
+This is the val length: 5
+Name[28]:autoUpdate,value[28]=false
+Config items length in read_config:29
+Begin getVal() for key:office_id
+Config items length in getVal:29
+Returning value:100228
+office_id:Begun init_globals()Begin of get_config()This is sql:SELECT VALUE FROM CONFIGURATION WHERE KEY='LOG_FILE' AND OFFICE_ID='0'
+ sql string :  SELECT VALUE FROM CONFIGURATION WHERE KEY='LOG_FILE' AND OFFICE_ID='0'
+End of get_config:/mnt/jffs2/retail.logBegin of get_config()This is sql:SELECT VALUE FROM CONFIGURATION WHERE KEY='CURRENCY' AND OFFICE_ID='0'
+ sql string :  SELECT VALUE FROM CONFIGURATION WHERE KEY='CURRENCY' AND OFFICE_ID='0'
+End of get_config:USDBegin getVal() for key:till_no
+Config items length in getVal:29
+Returning value:T001
+Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='COMPANY_NAME' AND OFFICE_ID='100228'
+End of get_prop:FP Shop No. 015Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='ADDRESS_LINE_1' AND OFFICE_ID='100228'
+End of get_prop:Pathuru VillageBegin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='ADDRESS_LINE_2' AND OFFICE_ID='100228'
+End of get_prop:Bhimadole MandalBegin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='ADDRESS_LINE_3' AND OFFICE_ID='100228'
+End of get_prop:West GodavariBegin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='CITY' AND OFFICE_ID='100228'
+End of get_prop:Dealer: K. SatyavathiBegin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='STATE' AND OFFICE_ID='100228'
+End of get_prop:Mob. 9704439553Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='COUNTRY' AND OFFICE_ID='100228'
+End of get_prop:Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='POSTCODE' AND OFFICE_ID='100228'
+End of get_prop:Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='TELEPHONE' AND OFFICE_ID='100228'
+End of get_prop:Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='MOBILE' AND OFFICE_ID='100228'
+End of get_prop:Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='FAX' AND OFFICE_ID='100228'
+End of get_prop:Begin of get_prop()
+ sql string :  SELECT VALUE FROM PROPERTIES WHERE KEY='E_MAIL' AND OFFICE_ID='100228'
+End of get_prop:Ended init_globals()Begin getVal() for key:remote_url
+Config items length in getVal:29
+Returning value:http://124.123.206.65/posservice/txnservice.asmx
+Begin getVal() for key:shop
+Config items length in getVal:29
+Ended getVal()
+Begin getVal() for key:terminal
+Config items length in getVal:29
+Returning value:520015
+Begin getVal() for key:server_user
+Config items length in getVal:29
+Returning value:520015
+Begin getVal() for key:server_pwd
+Config items length in getVal:29
+Returning value:520015
+Begin getVal() for key:authMode
+Config items length in getVal:29
+Returning value:smart
+Begin getVal() for key:authMode
+Config items length in getVal:29
+Returning value:smart
+Begin getVal() for key:authMode
+Config items length in getVal:29
+Returning value:smart
+Begin getVal() for key:show_splash
+Config items length in getVal:29
+Returning value:TRUE
+Inside toUpper: String to Convert: TRUE
+Inside toUpper: Converted String: TRUE
+Begin getVal() for key:commMode
+Config items length in getVal:29
+Returning value:GPRS
+Inside toUpper: String to Convert: GPRS
+Inside toUpper: Converted String: GPRS
+Begin getVal() for key:background
+Config items length in getVal:29
+Returning value:false
+Begin of Login()Begun setString
+This is the return value:3Ended setString:This is the var:123Begun setString
+This is the return value:5Ended setString:This is the var:54321End of validate()Begin of validate()
+ sql string :  SELECT role_id FROM USER_DETAILS WHERE USER_NAME='123' AND PASSWORD='54321'
+End of validate:USERBegun main_menu()
+ sql string :  SELECT count(*) FROM ORDER_HEADER WHERE SYNC_STATUS=0
+After executing query:SELECT count(*) FROM ORDER_HEADER WHERE SYNC_STATUS=0
+No. of rows:1
+Maxdispcnt=4 title=Main Menu 
+######event$$$$$$$$=19
+######event$$$$$$$$=19
+######event$$$$$$$$=13
+Begin getVal() for key:commMode
+Config items length in getVal:29
+Returning value:GPRS
+Inside toUpper: String to Convert: GPRS
+Inside toUpper: Converted String: GPRS
+Begun connect_To_GPRS-detach
+lock
+asyncmap 0
+crtscts
+defaultroute
+usepeerdns
+modem
+mru 552
+mtu 552
+name 1234
+password 1234
+#!/bin/sh
+TELEPHONE="*99***1#" 
+export TELEPHONE 
+rm -f /var/run/ppp.link 
+exec /usr/sbin/pppd    \
+        debug /dev/ttyS0  \
+        9600 0.0.0.0:0.0.0.0  \
+        connect /etc/ppp/ppp-on-dialer
+Begin getVal() for key:gprs_domain
+Config items length in getVal:29
+Returning value:www
+#!/bin/sh
+/usr/sbin/chat -v      \
+        TIMEOUT         3    \
+        ABORT           '\nBUSY\r'      \
+        ABORT           '\nNO ANSWER\r' \
+        ABORT          '\nRINGING\r\n\r\nRINGING\r'    \
+        ECHO            ON      \
+        ''               AT     \
+        'OK-+++\C-OK'   ATH0    \
+        ''              AT+CSQ      \
+        OK              'AT+CGATT=1' \
+        OK              'AT+CGDCONT=1,"IP","www"' \
+        TIMEOUT         45      \
+        OK              ATDT'*99***1#'  \
+        CONNECT         ''
+End of connect_To_GPRSPPP starting
+Device ttyS0 is locked by pid 98
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+Hangup (SIGHUP)
+Connect time 4.1 minutes.
+Sent 1213 bytes, received 1005 bytes.
+sh: ¿: command not found
+Begun connect_To_GPRS-detach
+lock
+asyncmap 0
+crtscts
+defaultroute
+usepeerdns
+modem
+mru 552
+mtu 552
+name 1234
+password 1234
+#!/bin/sh
+TELEPHONE="*99***1#" 
+export TELEPHONE 
+rm -f /var/run/ppp.link 
+exec /usr/sbin/pppd    \
+        debug /dev/ttyS0  \
+        9600 0.0.0.0:0.0.0.0  \
+        connect /etc/ppp/ppp-on-dialer
+Begin getVal() for key:gprs_domain
+Config items length in getVal:29
+Returning value:www
+#!/bin/sh
+/usr/sbin/chat -v      \
+        TIMEOUT         3    \
+        ABORT           '\nBUSY\r'      \
+        ABORT           '\nNO ANSWER\r' \
+        ABORT          '\nRINGING\r\n\r\nRINGING\r'    \
+        ECHO            ON      \
+        ''               AT     \
+        'OK-+++\C-OK'   ATH0    \
+        ''              AT+CSQ      \
+        OK              'AT+CGATT=1' \
+        OK              'AT+CGDCONT=1,"IP","www"' \
+        TIMEOUT         45      \
+        OK              ATDT'*99***1#'  \
+        CONNECT         ''
+End of connect_To_GPRSPPP starting
+Script /etc/ppp/ip-down started (pid 110)
+sent [LCP TermReq id=0x2 "User request"]
+rcvd [LCP TermAck id=0x2]
+Connection terminated.
+Waiting for 1 child processes...
+  script /etc/ppp/ip-down, pid 110
+Device ttyS0 is locked by pid 98
+Script /etc/ppp/ip-down finished (pid 110), status = 0x0
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+-1
+sh: kill: ±åÿ¿: no such pid
+Begun connect_To_GPRS-detach
+lock
+asyncmap 0
+crtscts
+defaultroute
+usepeerdns
+modem
+mru 552
+mtu 552
+name 1234
+password 1234
+#!/bin/sh
+TELEPHONE="*99***1#" 
+export TELEPHONE 
+rm -f /var/run/ppp.link 
+exec /usr/sbin/pppd    \
+        debug /dev/ttyS0  \
+        9600 0.0.0.0:0.0.0.0  \
+        connect /etc/ppp/ppp-on-dialer
+Begin getVal() for key:gprs_domain
+Config items length in getVal:29
+Returning value:www
+#!/bin/sh
+/usr/sbin/chat -v      \
+        TIMEOUT         3    \
+        ABORT           '\nBUSY\r'      \
+        ABORT           '\nNO ANSWER\r' \
+        ABORT          '\nRINGING\r\n\r\nRINGING\r'    \
+        ECHO            ON      \
+        ''               AT     \
+        'OK-+++\C-OK'   ATH0    \
+        ''              AT+CSQ      \
+        OK              'AT+CGATT=1' \
+        OK              'AT+CGDCONT=1,"IP","www"' \
+        TIMEOUT         45      \
+        OK              ATDT'*99***1#'  \
+        CONNECT         ''
+End of connect_To_GPRSPPP starting
+AT
+OK
+ATH0
+OK
+AT+CSQ
++CSQ: 9,0
+
+OK
+AT+CGATT=1
+OK
+AT+CGDCONT=1,"IP","www"
+OK
+ATDT*99***1#
+CONNECT
+Serial connection established.
+using channel 4
+Using interface ppp0
+Connect: ppp0 <--> /dev/ttyS0
+rcvd [LCP ConfReq id=0xa <mru 1600> <auth pap> <magic 0xc3c65c9> <asyncmap 0x0> <pcomp> <accomp>]
+sent [LCP ConfReq id=0x1 <mru 552> <asyncmap 0x0> <magic 0xdb7e4522> <pcomp> <accomp>]
+sent [LCP ConfAck id=0xa <mru 1600> <auth pap> <magic 0xc3c65c9> <asyncmap 0x0> <pcomp> <accomp>]
+rcvd [LCP ConfAck id=0x1 <mru 552> <asyncmap 0x0> <magic 0xdb7e4522> <pcomp> <accomp>]
+sent [PAP AuthReq id=0x1 user="1234" password=<hidden>]
+rcvd [PAP AuthAck id=0x1 "TTP Com PPP - Password Verified OK"]
+Remote message: TTP Com PPP - Password Verified OK
+PAP authentication succeeded
+sent [IPCP ConfReq id=0x1 <compress VJ 0f 01> <addr 0.0.0.0> <ms-dns1 0.0.0.0> <ms-dns3 0.0.0.0>]
+rcvd [IPCP ConfRej id=0x1 <compress VJ 0f 01>]
+sent [IPCP ConfReq id=0x2 <addr 0.0.0.0> <ms-dns1 0.0.0.0> <ms-dns3 0.0.0.0>]
+rcvd [IPCP ConfReq id=0x3 <addr 10.0.0.1>]
+sent [IPCP ConfAck id=0x3 <addr 10.0.0.1>]
+rcvd [IPCP ConfNak id=0x2 <addr 112.79.226.245> <ms-dns1 10.11.230.2> <ms-dns3 202.144.13.50>]
+sent [IPCP ConfReq id=0x3 <addr 112.79.226.245> <ms-dns1 10.11.230.2> <ms-dns3 202.144.13.50>]
+rcvd [IPCP ConfAck id=0x3 <addr 112.79.226.245> <ms-dns1 10.11.230.2> <ms-dns3 202.144.13.50>]
+local  IP address 112.79.226.245
+remote IP address 10.0.0.1
+primary   DNS address 10.11.230.2
+secondary DNS address 202.144.13.50
+Script /etc/ppp/ip-up started (pid 128)
+Script /etc/ppp/ip-up finished (pid 128), status = 0x0
+6
+PPP Connected 
+Reached here...1
+Reached here...2:::false
+Begun updatePending
+ sql string :  SELECT OFFICE_ID,ID,CARD_ID,MEMBER, CARD_TYPE,ORDER_DATE,ORDER_TYPE,AMOUNT,VAT,ORDER_DISCOUNT,PAYMENT_MODE,				STATUS,REMARKS,USER_ID,RECONCILE_STATUS,SYNC_STATUS,MEMBER_SLNO FROM ORDER_HEADER WHERE SYNC_STATUS='0' LIMIT 15
+After executing query:SELECT OFFICE_ID,ID,CARD_ID,MEMBER, CARD_TYPE,ORDER_DATE,ORDER_TYPE,AMOUNT,VAT,ORDER_DISCOUNT,PAYMENT_MODE,				STATUS,REMARKS,USER_ID,RECONCILE_STATUS,SYNC_STATUS,MEMBER_SLNO FROM ORDER_HEADER WHERE SYNC_STATUS='0' LIMIT 15
+No. of rows:15
+
+ Data in users table...
+Inside populateOrder
+Populating cart items:
+
+ sql string :  SELECT PRODUCT_ID,UNIQUE_CODE,PRODUCT_NAME,ALLOTMENT_TYPE,PRICE_UPPER_LIMIT,LOWER_LIMIT,QUANTITY, 			ACTUAL_PRICE,VAT,UOM,MAX_QUANTITY,AVAILED,SCHEME_ID,WARRANTY_START_DATE,WARRANTY_END_DATE,PROD_CODE,			ORDER_ID FROM ORDER_TRAILER WHERE ORDER_ID=344
+After executing query:SELECT PRODUCT_ID,UNIQUE_CODE,PRODUCT_NAME,ALLOTMENT_TYPE,PRICE_UPPER_LIMIT,LOWER_LIMIT,QUANTITY, 			ACTUAL_PRICE,VAT,UOM,MAX_QUANTITY,AVAILED,SCHEME_ID,WARRANTY_START_DATE,WARRANTY_END_DATE,PROD_CODE,			ORDER_ID FROM ORDER_TRAILER WHERE ORDER_ID=344
+No. of rows:5
+5.############# Ended population of cart item:34016008:
+5.############# Ended population of cart item:34058720:
+5.############# Ended population of cart item:34058960:
+5.############# Ended population of cart item:34059200:
+5.############# Ended population of cart item:33988304:
+After populating oh
+Begin getVal() for key:server_user
+Config items length in getVal:29
+Returning value:520015
+Begin getVal() for key:server_pwd
+Config items length in getVal:29
+Returning value:520015
+Begin getVal() for key:terminal
+Config items length in getVal:29
+Returning value:520015
+Soap Login Request:<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">  <soap:Body>    <login xmlns="http://microsoft.com/webservices/">      <objdetails>        <LoginID>520015</LoginID>       <Password>520015</Password>        <DeviceID>520015</DeviceID>      </objdetails>    </login>  </soap:Body></soap:Envelope>
+Begin getVal() for key:remote_url
+Config items length in getVal:29
+Returning value:http://124.123.206.65/posservice/txnservice.asmx
+Begin getVal() for key:FilePath
+Config items length in getVal:29
+Returning value:/mnt/jffs2
+Begin getVal() for key:FilePath
+Config items length in getVal:29
+Returning value:/mnt/jffs2
+This is the XML:<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">  <soap:Body>    <login xmlns="http://microsoft.com/webservices/">      <objdetails>        <LoginID>520015</LoginID>       <Password>520015</Password>        <DeviceID>520015</DeviceID>      </objdetails>    </login>  </soap:Body></soap:Envelope>
+Begin getVal() for key:remote_url
+Config items length in getVal:29
+Returning value:http://124.123.206.65/posservice/txnservice.asmx
+Begin getVal() for key:remote_url
+Config items length in getVal:29
+Returning value:http://124.123.206.65/posservice/txnservice.asmx
+Calling curl -H "Content-Type: text/xml; charset=utf-8" -H "SOAPAction:" -d @/mnt/jffs2/upload.xml -X POST http://124.123.206.65/posservice/txnservice.asmx?op=login -o /mnt/jffs2/response.xml
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100   370  100   370    0     0     88      0  0:00:04  0:00:04 --:--:--   177100   370  100   370    0     0     87      0  0:00:04  0:00:04 --:--:--   174
+Invoking soap with: requestPath=/mnt/jffs2/upload.xml, url=http://124.123.206.65/posservice/txnservice.asmx?op=login, action=login, responsePath=/mnt/jffs2/response.xml
+*****SESSION_ID AFTER LOGIN=borkir45zszc3e45ykyl5c45
+This is the response:<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><loginResponse xmlns="http://microsoft.com/webservices/"><loginResult>borkir45zszc3e45ykyl5c45</loginResult></loginResponse></soap:Body></soap:Envelope>
+Logged in with SESSION_ID:borkir45zszc3e45ykyl5c45
+Logged in with SESSION_ID:borkir45zszc3e45ykyl5c45
+Dumping txn in soap.c
+********Cart_item=34016008, 1, 8.00, 2.00
+********Cart_item=34058720, 3, 0.50, 13.50
+********Cart_item=34058960, 4, 1.00, 35.00
+********C

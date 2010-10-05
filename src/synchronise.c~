@@ -1,0 +1,36 @@
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+void *syncThread (void *arg);
+extern FILE *fp;
+extern char *getVal (char *);
+void synchronise();
+void upDown(void *arg);
+
+void synchronise()
+{
+}
+
+void *
+syncThread (void *arg)
+{
+  int sleepTime = 300, temp = 0;
+  while (1)
+    {
+      sleep (sleepTime);
+
+      fprintf (fp, "About to synchronise\n");
+      fflush (fp);
+
+      upDown (arg);
+
+      temp = (atoi) (getVal ("sleepTime"));
+      if (temp > 300)
+	sleepTime = temp;
+
+      fprintf (fp, "Sleeping now for Sleeptime:%d\n", sleepTime);
+      fflush (fp);
+
+    }
+}

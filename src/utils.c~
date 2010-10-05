@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+FILE *fp;
+
+char *toUpper (char *strToConvert);
+
+
+char *
+toUpper (char *strToConvert)
+{				//change each element of the string to upper case
+
+  unsigned int i = 0;
+  fprintf (fp, "Inside toUpper: String to Convert: %s\n", strToConvert);
+  for (i = 0; i < strlen (strToConvert); i++)
+    {
+      strToConvert[i] = toupper (strToConvert[i]);
+    }
+  fprintf (fp, "Inside toUpper: Converted String: %s\n", strToConvert);
+
+  return strToConvert;		//return the converted string
+}

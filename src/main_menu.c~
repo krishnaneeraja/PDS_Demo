@@ -1,0 +1,184 @@
+#include "header.h"
+#include <unistd.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+
+/********************************** global varibles********************************************/
+
+int ramdisk_type;
+
+extern int openDB ();
+int initialize_db ();
+extern int open_sqlite (char *);
+extern int close_sqlite ();
+char *database = "/mnt/jffs2/retail.sqlite";
+char *logFile = "retail.log";
+FILE *fp;
+char *configFile = "/mnt/jffs2/config.txt";
+void select1 (char *sql);
+void parseFiles ();
+int main_menu();
+
+typedef struct resultset_struct
+{
+  int rows;
+   int cols;
+   char ***recordset;
+ } resultset;
+extern resultset get_result (const char *fmt, ...);
+extern void *syncThread (void *arg);
+extern char *getVal(char *);
+extern char *toUpper(char *);
+
+/***********************************************************************************************
+                        MAIN MENU FOR RETAIL
+
+***********************************************************************************************/
+int
+main (void)
+{
+  struct tm intim;
+  int Ret_val;
+  double amount;
+  unsigned char str[100] = "";
+  pthread_t syncT;
+
+
+//      fp = fopen (logFile, "w+");
+  fp = stdout;
+  lk_open ();
+  prn_open ();
+  mscr_open ();
+  lk_dispinit ();
+  initialize_db ();
+  open_sqlite (database);
+
+  read_config (configFile);
+
+  if(strcmp(toUpper(getVal("show_splash")),"TRUE")==0)
+  {
+	  lk_disptext (1, 0, "LOTUS RETAIL", 0);
+	  lk_disptext (2, 0, "Callippus Solutions Pvt Ltd", 0);
+	  lk_disptext (3, 0, "Hyderabad", 0);
+	  lk_disptext (4, 0, "Enter to continue", 0);
+	  lk_getkey ();
+	  lk_dispclr ();
+  }
+
+  if(strcmp(toUpper(getVal("commMode")),"ETHERNET") == 0)
+	  ip_setup ();
+
+  if (pthread_create (&syncT, NULL, syncThread, NULL) != 0)
+    fprintf (stderr, "Error creating the thread");
+
+  main_menu ();
+
+  prn_close ();			// closing printer
+  lk_close ();			// closing pinpad
+  mscr_close ();		// closing magnetic swipe
+  close_sqlite ();
+
+  return SUCCESS;
+}
+
+
+int main_menu()
+{
+        MENU_T menu;
+        int opt=0;
+        int selItem  = 0;
+        int acceptKbdEvents=0;
+
+        lk_getkey();  
+        lk_dispclr(); 
+
+        menu.start                      =       0;
+        menu.maxEntries                 =       15;
+ 
+        strcpy(menu.title,"Main Menu");                                                                                     
+        strcpy(menu.menu[0],"Retail Sale");
+        strcpy(menu.menu[1],"Returns");
+        strcpy(menu.menu[2],"Price list/Inventory");
+        strcpy(menu.menu[3],"GRN");
+        strcpy(menu.menu[4],"Dely Note");
+        strcpy(menu.menu[5],"Exchange Rates");
+        strcpy(menu.menu[6],"Synchronise");
+        strcpy(menu.menu[7],"Reports");
+        strcpy(menu.menu[8],"Auto Update");
+        strcpy(menu.menu[9],"Bash"); 
+
+	while(1){
+          
+        	lk_dispclr();
+               	opt = scroll_menu(&menu,&selItem,acceptKbdEvents);
+		switch(opt){
+                  
+                   	case ENTER:
+
+                		switch (selItem+1){
+                        		case 1: retail_sale(); break; //retail.c
+
+                        		case 2: returns(); break; //returns.c
+                        
+                        		case 3: price_list(); break; //price_list.c
+                        
+                        		case 4: grn(); break; //grn.c
+                        
+                       			case 5: dn(); break; //dn.c
+                        
+                        		case 6: exch_rate(); break; //exch_rate.c
+                        
+                        		case 7: synchronise(); break; //synchronise.c
+                        
+                        		case 8: reports(); break; //reports.c
+                        
+                        		case 9: download(); break; //download.c
+                       	
+                        		case 10:lk_dispclr();	       	  
+							lk_disptext(2,5,"Bash Prompt",1);
+							prn_close();  // closing printer
+							lk_close();   // closing pinpad
+							sleep(2);
+							exit(0); 
+							break;              
+                  		} 
+          		default:   break;
+          
+         	}
+	}
+}
+
+
+int
+initialize_db ()
+{
+  int rc = 1;
+  struct stat buf;
+  int i = 0;
+  FILE *fp;
+
+  fp = stdout;
+
+  fprintf (fp, "Begun initialize_db\n");
+
+  fprintf (fp, "1...Initializing database from path...%s\n", database);
+  i = stat (database, &buf);
+  fprintf (fp, "2...Initializing database...:%d\n", i);
+
+  if ((i < 0) || (buf.st_size == 0))
+    {
+      fprintf (fp, "Initializing database...\n");
+      rc = open_sqlite (database);
+      if (rc == 0)
+	{
+	  fprintf (fp, "Create database failure!\n");
+	}
+      close_sqlite ();
+    }
+
+  fprintf (fp, "Ended initialize_db\n");
+
+  return rc;
+}

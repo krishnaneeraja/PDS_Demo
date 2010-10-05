@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+void retail_sale();
+
+
+void retail_sale()
+{
+
+}

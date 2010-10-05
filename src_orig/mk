@@ -1,0 +1,14 @@
+#LDIR=/usr/lib/lib91epos.a  /usr/lib/epos/libcurl.so.3
+LDIR=/usr/lib/lib91epos.a /usr/lib/libcurl.so.4
+IDIR=/usr/include/V91SDK/
+IDIR2=/root/ams/include
+CC = gcc 
+FILENAME1 = upload.c
+FILENAME2 = fileupload.c reader.c
+all1=upload1
+all2=upload2
+TARGET :
+	 
+	$(CC) $(FILENAME1)  $(LDIR) -o $(all1)  -I $(IDIR) -I $(IDIR2)
+	$(CC) -DMAIN $(FILENAME2)  $(LDIR) -o $(all2)  -I $(IDIR) -I $(IDIR2)
+	

@@ -1,0 +1,292 @@
+#include <header.h>
+
+/********************************** global varibles********************************************/
+
+ int ramdisk_type;
+
+ char ethtype[30]="";                                                                                                                      
+ char *logFile = "ams.log";
+ FILE *fp;
+/***********************************************************************************************
+                        MAIN MENU FOR SELF-DIAGNOSTICS ver 4.0
+
+***********************************************************************************************/               
+  int main (void)
+   {
+
+/*        MENU_T menu;
+        int opt=0,ret;
+        int selItem  = 0;
+        int acceptKbdEvents;
+        int maxEntries = 0;
+        short scroll = 0;*/
+
+	struct tm intim;
+	int Ret_val;
+	double amount;
+	unsigned char str[100]="";
+
+	fp = fopen (logFile, "w+");
+//	fp=stdout;
+
+        lk_open();
+        prn_open();
+        mscr_open();
+        lk_dispinit();
+
+	lk_getrtc(&intim); // getting time
+	system("date");    // diplaying time
+	sprintf(str,"%2d:%2d:%2d  %2d:%2d:%d",intim.tm_hour,intim.tm_min,intim.tm_sec,intim.tm_mday,intim.tm_mon+1,intim.tm_year+1900);
+
+
+	puts(str);
+
+	while(1)
+	{
+
+        MENU_T menu;
+        int opt=0,ret;
+        int selItem  = 0;
+        int acceptKbdEvents;
+        int maxEntries = 0;
+        short scroll = 0;
+
+	lk_dispclr();
+        lk_disptext(1,0,"LINKWELL TELESYSTEMS",1);
+        lk_disptext(3,0,"Gowra Classic,Hyd-16",0); 
+        lk_disptext(4,2,"Self Diagnostics",0);  
+        lk_disptext(5,6,"Ver 4.0",0);   
+	lk_getkey(); 
+//	if(ENTER==lk_getkey()){} //added
+//	else continue;
+  
+
+        lk_dispclr(); 
+
+        menu.start                      =       0;
+        menu.maxEntries                 =       19;
+        maxEntries                      =      menu.maxEntries;
+ 
+        strcpy(menu.title,"MAIN MENU");                                                                                     
+        strcpy(menu.menu[0],"LCD");
+        strcpy(menu.menu[1],"Keypad");
+        strcpy(menu.menu[2],"Printer");
+        strcpy(menu.menu[3],"Magnetic Head");
+        strcpy(menu.menu[4],"IFD");
+        strcpy(menu.menu[5],"Battery");
+        strcpy(menu.menu[6],"Communication");
+        strcpy(menu.menu[7],"USB A");
+        strcpy(menu.menu[8],"Download");
+        strcpy(menu.menu[9],"Image Version");
+        strcpy(menu.menu[10],"Setup");
+        strcpy(menu.menu[11],"JFFS2");
+        strcpy(menu.menu[12],"Machine ID");
+        strcpy(menu.menu[13],"FIRM Upgrade"); 
+        strcpy(menu.menu[14],"RFID");
+	strcpy(menu.menu[15],"Speaker");
+	strcpy(menu.menu[16],"Sdcard");
+	strcpy(menu.menu[17],"Shutdown");
+        strcpy(menu.menu[18],"Bash"); 
+	
+
+        while(1)
+         {	
+              opt = scroll_menu(&menu,&selItem,acceptKbdEvents);
+        	    
+	 	if(opt==CANCEL)  /// added
+			break;
+
+                switch(opt)
+                {
+                    case CANCEL:
+                       continue;
+
+                   case ENTER:
+  
+                   switch (selItem+1 )
+                    {
+                        case 1:  Display_test ();       break;
+                        
+                        case 2:  Keypad_test ();        break;
+                        
+                        case 3:  Printer_test ();       break;
+ 
+                        case 4:  MagHead_test ();       break;
+                        
+                        case 5:  Ifd_test ();           break;
+                        
+                        case 6:  Battery_test ();       break;
+                        
+                        case 7:  Comm_test ();          break;
+                        
+                        case 8:  usb_test ();           break;
+                        
+                        case 9:  Download_menu ();      break;
+                        
+                        case 10: versioninfo ();        break;
+                        
+                        case 11: Setup_menu ();         break;
+                        
+                        case 12: jffs2_menu ();         break;
+
+                        case 13: get_machineid();       break;
+                       
+                        case 14: pinpad_programming();  break;
+
+                        case 15: rfid_test();           break; 
+		
+			case 16: sound_test();
+	                system("rmmod audio_enable >/dev/null 2>&1 ");		break;
+		
+			case 17: sdcard();		break;
+	
+			case 18: prn_close();  // closing printer
+                                 lk_close();   // closing pinpad
+	                         mscr_close(); // closing magnetic swipe
+				 system("init 0");
+                        case 19:
+     
+                                lk_dispclr();
+                                lk_disptext(2,5,"Bash Prompt",1);
+                                prn_close();  // closing printer
+                                lk_close();   // closing pinpad
+                                mscr_close(); // closing magnetic swipe
+				return SUCCESS;
+                                break;              
+                  } 
+          default:   break;
+          
+         }
+     }//while
+   } //while
+        prn_close();  // closing printer
+        lk_close();   // closing pinpad
+        mscr_close(); // closing magnetic swipe
+       
+        return SUCCESS;         
+}
+
+int ramdisk_chk ( void )
+    {
+
+      FILE *fp,*fp1;
+      char str[80]="",str1[80]="";
+
+     ramdisk_type=0;
+
+      fp1=fopen("/etc/rc.d/rc.sysinit","r");   //checking  init scripts for ramdisk configuration file
+      
+      if(fp1==NULL) 
+        {
+          printf("\nfile open error\n");
+          return ERROR;   
+        }
+ 
+        
+      else
+        while((fgets(str1,80,fp1))!=NULL)
+         {
+           if((strstr(str1,"/home/setup_lotto")) != NULL)  
+             {
+                fclose(fp1);
+                fp=fopen("/home/setup_lotto","r");
+                break;
+             }
+         
+           else if((strstr(str1,"/home/setup_board")) != NULL)  
+             {
+                fclose(fp1);
+                fp=fopen("/home/setup_board","r");  
+                break;
+             }
+         }  
+               
+      if(fp==NULL)
+        {
+          printf("\nfile open error\n");
+          return -1;
+        }
+ 
+     else
+      while((fgets(str,80,fp))!=NULL)     // Checking for Ramdisk type
+       {
+         
+         if((strstr(str,"RALINK")) != NULL)
+          {
+            ramdisk_type=RALINKWLAN;  
+            printf("\nRALINK RAMDISK\n");
+            break;
+          }
+          
+         else if((strstr(str,"ETHERNET")) != NULL)
+         {
+           ramdisk_type=ETHERNET;
+           printf("\nETHERNET RAMDISK \n");
+           break;
+         }
+         
+         
+        else if((strstr(str,"CNET")) != NULL)
+          {
+             ramdisk_type=CNETWLAN;
+             printf("\nCNET RAMDISK\n");
+             break;
+          }
+          
+        else if((strstr(str,"CDMA")) != NULL)
+          {
+            ramdisk_type=CDMA;
+            printf("\nCDMA RAMDISK\n");
+            break;
+          }
+          
+        if((strstr(str,"GSM")) != NULL)
+          {
+             ramdisk_type=GSM_GPRS;
+             printf("\nGSM/GPRS RAMDISK\n");
+             break;
+          }
+          
+       if((strstr(str,"PSTN")) != NULL)
+        {
+         ramdisk_type=PSTN;
+         printf("\nPSTN RAMDISK\n");
+         break;
+        }
+    }
+                             
+   fclose(fp);
+   
+   return SUCCESS;
+
+ }
+
+
+int copy_file (char *dest,char *src)
+{
+unsigned char c[512];
+int in, out,n;
+ 
+in = open(src , O_RDONLY);
+out = open(dest, O_WRONLY|O_CREAT, S_IRUSR|S_IWUSR);
+
+if (in == -1 || out == -1)
+{
+ fprintf(stderr,"unable to oepn file %d %d\n" ,in,out);
+ return -1;
+}
+		
+
+while(1)
+ {
+	n=read(in,c,512);
+ 	if (n==0)
+  	break;
+ 	write(out,c,n);
+ }
+
+close(in);
+close(out);
+
+}
+

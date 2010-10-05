@@ -1,0 +1,18 @@
+LDIR=../lib/lib91sdepos.a
+LDIR1=../lib/libthinkfinger.a
+LDIR2=../lib/libusb.a
+LDIR3=../lib/libSC2_ANSI378.a
+LDIR4=../lib/*.o /lib/libsqlite3.so /lib/libcurl.so.3
+IDIR=../include
+CC=arm-linux-gcc 
+
+OBJS=upload.o
+
+test_apl:$(OBJS)
+	$(CC) -o upload   $(OBJS) $(LDIR1) $(LDIR2) $(LDIR3) $(LDIR4)  $(LDIR)  -lpthread -w -O2 
+upload.o :upload.c 
+	$(CC) -I $(IDIR) -c upload.c
+
+clean:
+	rm -f upload.o
+	rm -f upload

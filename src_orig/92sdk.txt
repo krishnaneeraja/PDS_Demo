@@ -1,0 +1,35 @@
+Issues related to the 94SDK(452).
+
+
+1.cp: cannot stat `92POS_SELFDIAG/*': No such file or directory
+actually the folder is there with name of 94POS_SELFIDAG.
+2.cp: cannot stat `tootchain/sqlite/lib*': No such file or directory
+cp: cannot stat `tootchain/sqlite/*.h': No such file or directory
+In 94sdkcd the directory is by the name of toolchain.
+3.
+`download' -> `/usr/sbin/download'
+`download/uninstall.sh' -> `/usr/sbin/download/uninstall.sh'
+`download/newmkapp' -> `/usr/sbin/download/newmkapp'
+`download/INSTALL.sh' -> `/usr/sbin/download/INSTALL.sh'
+`download/.xvpics' -> `/usr/sbin/download/.xvpics'
+`download/.xvpics/mht2C_bmp.c' -> `/usr/sbin/download/.xvpics/mht2C_bmp.c'
+`download/download' -> `/usr/sbin/download/download'
+`download/mht2C_bmp.bmp' -> `/usr/sbin/download/mht2C_bmp.bmp'
+It is coping the whole folder in the /usr/sbin that is not required.
+Due to this we are not able to use newmkapp & download exe.
+4.chmod +x dowmload/Install should be given in the Install.sh.
+5.chmod +x toolchain/Install should be given in the Install.sh.
+6.All the header files & library are there with the name of 91 rather than 92.
+
+
+Selfdiag issues:
+
+1.For printer Motor test the motor is moving but it is showing motor failed on the LCD.
+2.Description(usage) of the Firm ware upgrade is not there in the documentation.
+3.For printer options for the font test it is showing only one font.
+
+Documentation issues.
+
+1.Required to change the documentation from 91 POS to 92 POS.
+2.Renaming of the library from 91 to 92.
+3.Documents related to the specific exe should be given seperatedly for understanding its usage.
